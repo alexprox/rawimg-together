@@ -16,7 +16,7 @@
                     </li>
                 </ul>
                 <ul class="nav pull-right">
-                    <li class="active">
+                    <li>
                         <a href="/logout"><?= $core->_('logout'); ?></a>
                     </li>
                 </ul>
