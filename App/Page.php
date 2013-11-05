@@ -29,7 +29,7 @@
             $user = $this->user();
             if($this->core->url() != '/login' && !$user->logged())
                 $this->core->redirect('/login');
-            $this->view = new View('Template');
+            $this->view = new View('Template', $this->core);
         }
         
         public function after()
