@@ -13,14 +13,16 @@
         
         private $_data = array();
         
-        public function __construct($name)
+        public function __construct($name, $core)
         {
-            $this->_data['url'] = Core::url();
             $this->folder = dirname(__DIR__).'\\'.$this->folder;
             $this->name = $name;
             $this->file = $name.$this->ext;
             if(!file_exists($this->folder.'\\'.$this->file))
                 throw new \Exception("View ".$name." not found.");
+            
+            $this->_data['url'] = Core::url();
+            $this->_data['core'] = $core;
         }
         
         public function __get($name)
