@@ -18,11 +18,11 @@
                 .RAWIMG Together &copy; <?php echo (new DateTime())->format('Y');  ?>
             </div>
         </div>
-        
-        <script src="/js/jquery.min.js"></script>
+	<script src="/js/jquery.min.js"></script>
         <script src="/bootstrap/js/bootstrap.min.js"></script>
         <script>
             <?= $core->locale->js_function(); ?>
         </script>
+        <script src="/js/js.js"></script>
     </body>
 </html>

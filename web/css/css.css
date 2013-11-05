@@ -1,3 +1,4 @@
 body {padding-top: 40px;}
 @media (max-width:979px){body{padding-top: 0px;}}
 .red{color:red}
+.row-fluid{margin-bottom: 5px;}
