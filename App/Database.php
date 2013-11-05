@@ -12,10 +12,7 @@
         
         public function __construct($core)
         {
-            if(file_exists(root().'\\'.$core->config_folder().'\\'.$this->config))
-                $config = include(root().'\\'.$core->config_folder().'\\'.$this->config);
-            else
-                throw new \Exception('File "'.root().'\\'.$core->config_folder().'\\'.$this->config.'" not found');
+            $config = $core->include_config($this->config);
             $this->create_connection($config);
         }
         
