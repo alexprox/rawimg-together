@@ -14,10 +14,18 @@
             $this->session_id = session_id();
         }
         
-        public function login()
+        public function login($uid)
         {
+            $this->user_id = $uid;
             $this->logged = true;
-            return 'OK';
+        }
+        
+        public function pwd_encode($pwd, $salt)
+        {
+            $pass = $pwd;
+            for($i = 0; $i < 42; $i++)
+                $pass = md5($pass.$salt);
+            return $pass;
         }
         
         public function logged()
