@@ -7,7 +7,7 @@
             'Content-Type: text/html; charset=utf-8'
         );
         
-        private $config_folder = 'App';
+        private $config_folder = 'Config';
         
         private $router;
         
@@ -25,6 +25,7 @@
                 $this->router = new \App\Router($this);
                 $this->db = new \App\Database($this);
                 $this->session = new \App\Session();
+                $this->locale = new \App\Locale($this);
                 $user = $this->session->get('who_am_i', false);
                 if(!$user)
                     $this->session->set('who_am_i', new \App\User());
@@ -35,9 +36,22 @@
             }
         }
         
+        public function _($code)
+        {
+            return $this->locale->txt($code);
+        }
+        
         public function config_folder()
         {
             return $this->config_folder;
+        }
+        
+        public function include_config($config_file)
+        {
+            if(file_exists(root().'\\'.$this->config_folder().'\\'.$config_file))
+                return include(root().'\\'.$this->config_folder().'\\'.$config_file);
+            else
+                throw new \Exception('Config file "'.root().'\\'.$this->config_folder().'\\'.$config_file.'" not found');
         }
         
         static public function arr($arr, $name, $default = NULL)
