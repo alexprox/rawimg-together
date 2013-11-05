@@ -8,14 +8,26 @@
         );
         
         private $config_folder = 'Config';
-        
+        /**
+         * @var \App\Router
+         */
         private $router;
-        
+        /**
+         * @var \App\Debug
+         */
         private $debug;
-        
+        /**
+         * @var \App\Database
+         */
         public $db;
-        
+        /**
+         * @var \App\Session
+         */
         public $session;
+        /**
+         * @var \App\Locale
+         */
+        public $locale;
         
         public function __construct()
         {

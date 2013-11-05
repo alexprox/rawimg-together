@@ -37,6 +37,9 @@
             echo $this->view->render();
         }
         
+        /**
+         * @return \App\User
+         */
         public function user()
         {
             $user = $this->core->session->get('who_am_i');
@@ -45,7 +48,9 @@
             else
                 return false;
         }
-        
+        /**
+         * @return \App\Database
+         */
         public function db()
         {
             return $this->core->db;

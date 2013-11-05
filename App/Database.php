@@ -26,7 +26,10 @@
             $this->connection->setAttribute(\PDO::MYSQL_ATTR_INIT_COMMAND, \PDO::ERRMODE_EXCEPTION);
             $this->connection->exec("SET NAMES 'UTF-8';");
         }
-        
+        /**
+         * @param string $sql
+         * @return \App\Query
+         */
         public function query($sql)
         {
             return new Query($this->connection, $sql);

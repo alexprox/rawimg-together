@@ -3,6 +3,9 @@
 
     class Debug
     {
+        /**
+         * @param \Exception $exception
+         */
         public function render_exceptions($exception)
         {
             echo $exception->getMessage();
