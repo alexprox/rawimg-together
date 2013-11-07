@@ -6,8 +6,10 @@
     {
         public function action_home()
         {
-            $this->view->subview = 'Content/Home';
-            //$out = $this->db()->query('SELECT :id as text;')->bind('id',1)->execute();
-            //var_dump(preg_match('/(UPDATE|INSERT)/', 'INSERT Va INTO'));
+            $this->view->subview = 'Content/Drawer';
+            $this->view->footer = false;
+            $this->view->navbar = false;
+            $this->view->full_bootstrap = false;
+            $this->view->drawer = '';
         }
     }
