@@ -23,6 +23,9 @@
             
             $this->_data['url'] = Core::url();
             $this->_data['core'] = $core;
+            $this->_data['navbar'] = true;
+            $this->_data['footer'] = true;
+            $this->_data['full_bootstrap'] = true;
         }
         
         public function __get($name)
