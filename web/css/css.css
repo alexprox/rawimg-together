@@ -1,19 +1,31 @@
 .red{color:red}
 .row-fluid{margin-bottom: 5px;}
 canvas{border: 1px solid black;}
-.nav-button-fixed{
+.nav-button-fixed, .draw-editor
+{
+    background-color: #c6c6c6;
+    border: 1px solid #e7e7e7;
+    padding: 2px;
     position: fixed;
+}
+.nav-button-fixed
+{
     top: 0;
     left: 0;
-    z-index: 1070;
+}
+.draw-editor{
+    width: 60px;
+    height: 100%;
+    position: fixed;
+    top: 55px;
+    left: -60px;
+    display: none;
 }
 .nav-button-fixed .btn{margin: 2px 0 0 2px;}
-.draw-bar{
-    z-index: 1061;
-}
 .color
 {
     background-image: none;
+    width: 54px;
 }
 .full
 {
@@ -24,9 +36,4 @@ canvas{border: 1px solid black;}
     left: 0;
     margin: 0;
     padding: 0;
-}
-.draw-editor, .colors
-{
-    margin-left: 5px;
-    display: inline-block;
 }

@@ -11,7 +11,7 @@ var Drawer = function(options){
         offset : $(canvas).offset(),
         init: function()
         {
-            $('body').addClass('full');
+            $('body').addClass('full').css('overflow-x','hidden');
             canvas.width= $('body').width();
             canvas.height= $('body').height();
             ctxt = canvas.getContext("2d");
@@ -137,9 +137,15 @@ $(function(){
     $('.draw-editor-toggler').on('click', function(){
         var panel = $('.draw-editor');
         if(panel.is(':visible'))
-            panel.slideUp('fast');
+        {
+            panel.animate({left: '-60px'}, 200);
+            panel.hide('fast');
+        }
         else
-            panel.slideDown('fast');
+        {
+            panel.show('fast');
+            panel.animate({left: '0px'}, 200);
+        }
     });
     $('.clear').on('click', function(){
         drawr.clear();

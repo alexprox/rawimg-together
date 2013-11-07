@@ -9,4 +9,6 @@
         <button class="btn btn-large btn-warning clear"><i class="icon-trash"></i></button>
     </div>
 </div>
-<canvas id="draw"></canvas>
+<div class="wrapper">
+    <canvas id="draw"></canvas>
+</div>
