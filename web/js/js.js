@@ -1,23 +1,31 @@
-var Drawer = function(options) {
+var Drawer = function(options){
     var is_touch_device = !!('ontouchstart' in window);
     var canvas = document.getElementById(options.id);
-    var sketch = document.querySelector('#sketch');
-    var sketch_style = getComputedStyle(sketch);
-    canvas.width = parseInt(sketch_style.getPropertyValue('width'));
-    canvas.height = parseInt(sketch_style.getPropertyValue('height'));
-    var ctxt = canvas.getContext("2d");
+    var ctxt;
+    var colors;
     
     var isDrawing = false;
+    var lineStep = 5;
     
-    ctxt.strokeStyle = 'black';
-    ctxt.lineWidth = options.size || Math.ceil(Math.random() * 35);
-    ctxt.lineCap = 'round';
-    ctxt.lineJoin = 'round';
-
     var self = {
         offset : $(canvas).offset(),
         init: function()
         {
+            $('body').addClass('full');
+            canvas.width= $('body').width();
+            canvas.height= $('body').height();
+            ctxt = canvas.getContext("2d");
+            colors = ['black', 'gray', 'white', 'pink', 'red', 'orange', 'yellow', 'green', 'blue', 'darkviolet'];
+            ctxt.strokeStyle = 'black';
+            ctxt.lineWidth = options.size || Math.ceil(Math.random() * 35);
+            ctxt.lineCap = 'round';
+            ctxt.lineJoin = 'round';
+            
+            for(k in colors)
+            {
+                $('.colors').html($('.colors').html()+'<button class="btn btn-large color" value="'+colors[k]+'" style="background-color:'+colors[k]+';">&nbsp;</button>');
+                //if(k == 4)$('.colors').html($('.colors').html()+'<br>');
+            }
             canvas.addEventListener("touchstart",self.start,false);
             canvas.addEventListener("touchmove",self.draw,false);
             canvas.addEventListener("touchend",self.stop,false);
@@ -29,6 +37,12 @@ var Drawer = function(options) {
         start: function(e)
         {
             isDrawing = true;
+            //tap
+            ctxt.beginPath();
+            ctxt.moveTo(self.getX(e), self.getY(e));
+            ctxt.lineTo(self.getX(e)+1, self.getY(e)+1);
+            ctxt.stroke();
+            //draw
             ctxt.beginPath();
             ctxt.moveTo(self.getX(e), self.getY(e));
             e.preventDefault();
@@ -57,14 +71,14 @@ var Drawer = function(options) {
                 var t = event.targetTouches[0].pageX;
             else
                 var t = event.pageX;
-            return t-self.offset.left;
+            return t;//-self.offset.left;
         },
         getY: function(event){
             if(is_touch_device)
                 var t = event.targetTouches[0].pageY;
             else
                 var t = event.pageY;
-            return t-self.offset.top;
+            return t;//-self.offset.top;
         }
     };
     this.clear = function()
@@ -73,7 +87,12 @@ var Drawer = function(options) {
     };
     this.setSize = function(size)
     {
-        ctxt.lineWidth = size;
+        var tmp = ctxt.lineWidth;
+        size = size==1?1:-1;
+        tmp = tmp+size*lineStep;
+        if(tmp < 1)
+            tmp = options.size;
+        ctxt.lineWidth = tmp;
     };
     this.get = function()
     {
@@ -82,41 +101,63 @@ var Drawer = function(options) {
     };
     this.setColor = function(clr)
     {
-        ctxt.strokeStyle = clr;
+        if(colors.indexOf(clr) !== -1)
+            ctxt.strokeStyle = clr;
     };
     this.save = function()
     {
         window.open(canvas.toDataURL('image/png'));
     };
-    return self.init();
+    self.init();
+    return this;
 };
 $(function(){
-    var size = 1;
-    var sizeStep = 5;
-    var colors = ['white', 'pink', 'red', 'orange', 'yellow', 'green', 'blue', 'darkviolet',  'black'];
-    for(k in colors)
-        $('.colors').html($('.colors').html()+'<button class="color" value="'+colors[k]+'" style="background-color:'+colors[k]+';">&nbsp;</button>')
-    var drawr = new Drawer({ id: "draw", size: size });
-    $('#clear').on('click', function(){
+    $('.nav-toggler').live('click', function(){
+        var bar = $('.'+$(this).attr('for'));
+        if(bar.length > 0)
+        {
+            $('.navbar').slideUp('fast');
+            if(bar.is(':visible'))
+            {
+                bar.slideUp('fast');
+            }
+            else
+            {
+                bar.slideDown('fast');
+            }
+        }
+    });
+    if($('#draw').length)
+    {
+        var drawr = new Drawer({
+            id: "draw",
+            size: 3 
+        });
+    }
+    $('.draw-editor-toggler').on('click', function(){
+        var panel = $('.draw-editor');
+        if(panel.is(':visible'))
+            panel.slideUp('fast');
+        else
+            panel.slideDown('fast');
+    });
+    $('.clear').on('click', function(){
         drawr.clear();
     });
-    $('#save').on('click', function(){
+    $('.save-drawing').on('click', function(){
         drawr.save();
     });
     $('.size').on('click', function(){
-        if($(this).val() > 0)
-        {
-            size+=sizeStep;
-        }
-        else
-        {
-            size-=sizeStep;
-            if(size <= 0)
-                size = 1;
-        }
-        drawr.setSize(size);
+        drawr.setSize($(this).val());
     });
     $('.color').on('click', function(){
+        $('.color').removeClass('active');
+        $(this).addClass('active');
         drawr.setColor($(this).val());
+    });
+    $('.cancel').on('click', function(){
+       var a = confirm(txt('cancel-warning')); 
+       if(a)
+           drawr.clear();
     });
 });
