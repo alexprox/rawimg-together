@@ -116,15 +116,16 @@
         public function redirect($url)
         {
             $this->headers[] = 'Location: '.$url;
+            $this->send_headers();
         }
         
         public function execute()
         {
             try
             {
+                $this->send_headers();
                 $to_run = $this->router->match(self::url());
                 $to_run['Controller']->run($to_run['Action']);
-                $this->send_headers();
             }
             catch(\Exception $e)
             {
