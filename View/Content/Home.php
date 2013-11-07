@@ -9,6 +9,8 @@
         <button class="btn span4" id="save" ><i class="icon-download-alt"></i></button>
         <button class="btn span4" id="send" ><i class="icon-envelope"></i></button>
     </div>
-    <canvas id="draw" height="450" width="922"></canvas>
+    <div id="sketch" class="row-fluid">
+        <canvas id="draw" height="450" width="922"></canvas>
+    </div>
     <script src="/js/jquery.min.js"></script>
 </div>
