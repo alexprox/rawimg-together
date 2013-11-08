@@ -12,7 +12,7 @@
             $this->core = $core;
         }
         
-        public function run($action)
+        public function run($action, $params)
         {
             $action = 'action_'.$action;
 
@@ -20,7 +20,7 @@
                 throw new \Exception("Method {$action} doesn't exist in ".get_class($this));
 
             $this->before();
-            $this->$action();
+            call_user_func_array(array($this, $action), $params);
             $this->after();
         }
         
@@ -59,13 +59,5 @@
         public function post($name, $default = NULL)
         {
             return Core::post($name, $default);
-        }
-        
-        public function only_drawer($data = '')
-        {
-            $this->view->footer = false;
-            $this->view->navbar = false;
-            $this->view->full_bootstrap = false;
-            $this->view->drawer = $data;
         }
     }
