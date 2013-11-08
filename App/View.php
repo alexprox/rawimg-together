@@ -13,6 +13,10 @@
         
         private $_data = array();
         
+        private $execute = true;
+        
+        private $body = '';
+        
         public function __construct($name, $core)
         {
             $this->folder = dirname(__DIR__).'\\'.$this->folder;
@@ -40,12 +44,22 @@
             $this->_data[$name] = $value;
         }
         
+        public function json($value)
+        {
+            $this->execute = false;
+            $this->body = json_encode($value);
+        }
+        
         public function render()
         {
-            extract($this->_data);
-            ob_start();
-            include($this->folder.'\\'.$this->file);
-            return ob_get_clean();
+            if($this->execute)
+            {
+                extract($this->_data);
+                ob_start();
+                include($this->folder.'\\'.$this->file);
+                $this->body = ob_get_clean();
+            }
+            return $this->body;
         }
         
         public function only_drawer($data = '')
