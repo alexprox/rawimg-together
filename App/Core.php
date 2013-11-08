@@ -125,7 +125,7 @@
             {
                 $this->send_headers();
                 $to_run = $this->router->match(self::url());
-                $to_run['Controller']->run($to_run['Action']);
+                $to_run['Controller']->run($to_run['Action'], $to_run['Params']);
             }
             catch(\Exception $e)
             {
