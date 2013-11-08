@@ -60,4 +60,12 @@
         {
             return Core::post($name, $default);
         }
+        
+        public function only_drawer($data = '')
+        {
+            $this->view->footer = false;
+            $this->view->navbar = false;
+            $this->view->full_bootstrap = false;
+            $this->view->drawer = $data;
+        }
     }
