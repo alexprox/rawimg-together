@@ -104,9 +104,9 @@ var Drawer = function(options){
         if(colors.indexOf(clr) !== -1)
             ctxt.strokeStyle = clr;
     };
-    this.save = function()
+    this.data = function()
     {
-        window.open(canvas.toDataURL('image/png'));
+        return canvas.toDataURL('image/png');
     };
     self.init();
     return this;
@@ -148,10 +148,23 @@ $(function(){
         }
     });
     $('.clear').on('click', function(){
-        drawr.clear();
+        if(confirm(txt('clear-warning')))
+            drawr.clear();
     });
     $('.save-drawing').on('click', function(){
-        drawr.save();
+        var type = $(this).val();
+        $.ajax({
+            type: "POST",
+            url: "",
+            dataType: "json",
+            data: {
+                image: drawr.data(),
+                drawer: type
+            }
+        }).success(function(d) {
+            console.log(d);
+        });
+        
     });
     $('.size').on('click', function(){
         drawr.setSize($(this).val());
@@ -162,8 +175,9 @@ $(function(){
         drawr.setColor($(this).val());
     });
     $('.cancel').on('click', function(){
-       var a = confirm(txt('cancel-warning')); 
-       if(a)
-           drawr.clear();
+       if(confirm(txt('cancel-warning')))
+       {
+           location.href='/';
+       }
     });
 });
