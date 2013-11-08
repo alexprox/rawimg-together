@@ -47,4 +47,13 @@
             include($this->folder.'\\'.$this->file);
             return ob_get_clean();
         }
+        
+        public function only_drawer($data = '')
+        {
+            $this->_data['subview'] = 'Content/Drawer';
+            $this->_data['footer'] = false;
+            $this->_data['navbar'] = false;
+            $this->_data['full_bootstrap'] = false;
+            $this->_data['drawer'] = $data;
+        }
     }
