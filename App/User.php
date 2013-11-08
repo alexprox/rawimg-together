@@ -20,14 +20,6 @@
             $this->logged = true;
         }
         
-        public function pwd_encode($pwd, $salt)
-        {
-            $pass = $pwd;
-            for($i = 0; $i < 42; $i++)
-                $pass = md5($pass.$salt);
-            return $pass;
-        }
-        
         public function logged()
         {
             return $this->logged;

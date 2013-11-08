@@ -6,6 +6,7 @@
     {
         public function action_login()
         {
+            $this->view->navbar = false;
             $error = false;
             if($this->user()->logged())
                 $this->core->redirect('/');
@@ -15,31 +16,29 @@
                 $pass = $this->post('password', false);
                 if($pass)
                 {
-                    $sql = 'SELECT ID, Pwd, Salt, Status '
+                    $sql = 'SELECT ID, Status '
                            .' FROM access_users '
-                           .'WHERE login = :login; ';
+                           .'WHERE login = :login '
+                           .'  AND access_pwd_encode(:plain_pass, Salt)=Pwd;';
                     $query = $this->db()->query($sql);
-                    $result = $query->bind('login', $login, true)->execute();
+                    $result = $query->bind('login', $login, true)
+                            ->bind('plain_pass', $pass, true)
+                            ->execute();
                     if(count($result) != 0)
                     {
-                        if($this->user()->pwd_encode($pass, $result['Salt']) == $result['Pwd'])
+                        if($result['Status'] == 0)
                         {
-                            if($result['Status'] == 0)
-                            {
-                                $this->user()->login($result['ID']);
-                                $this->core->redirect('/');
-                            }
-                            else
-                                $error = 'login error 3';
+                            $this->user()->login($result['ID']);
+                            $this->core->redirect('/');
                         }
                         else
-                            $error = 'login error 2';
+                            $error = 'login error 3';
                     }
                     else
-                        $error = 'login error 1';
+                        $error = 'login error 2';
                 }
                 else
-                    $error = 'login error 4';
+                    $error = 'login error 1';
             }
             $this->view->error = $error;
             $this->view->subview = 'User/Login';

@@ -1,3 +1,4 @@
+<div class="row-fluid"></div>
 <div class="row-fluid text-center">
     <img src="/img/logo.png">
 </div>
