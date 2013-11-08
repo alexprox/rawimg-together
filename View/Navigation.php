@@ -13,14 +13,17 @@
                 <ul class="nav">
                     <li class="divider-vertical"></li>
                     <li <?php if($url == '/')echo 'class="active"'; ?>>
-                        <a href="/"><?= $core->_('new sketch'); ?></a>
+                        <a href="/"><?= $core->_('home page'); ?></a>
+                    </li>
+                    <li <?php if($url == '/new')echo 'class="active"'; ?>>
+                        <a href="/new"><?= $core->_('new sketch'); ?></a>
                     </li>
                     <li <?php if($url == '/my')echo 'class="active"'; ?>>
-                        <a href="/"><?= $core->_('my sketches'); ?></a>
+                        <a href="/my"><?= $core->_('my sketches'); ?></a>
                     </li>
                     <li class="divider-vertical"></li>
                     <li <?php if($url == '/game')echo 'class="active"'; ?>>
-                        <a href="/"><?= $core->_('game'); ?></a>
+                        <a href="/game"><?= $core->_('game'); ?></a>
                     </li>
                 </ul>
                 <ul class="nav pull-right">

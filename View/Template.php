@@ -3,13 +3,16 @@
     <head>
         <title>.RAWIMG Together</title>
         <meta charset="utf8">
+        <?php if(!isset($drawer)): ?>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <?php endif; ?>
         <?php if($full_bootstrap): ?>
             <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <?php endif; ?>
         <link href="/bootstrap-buttons-icons/css/bootstrap.min.css" rel="stylesheet">
         <link href="/css/css.css" rel="stylesheet">
     </head>
-    <body>
+    <body <?php if($navbar): ?>class="have-navbar"<?php endif;?>>
         <?php if($navbar):
             include 'Navigation.php'; ?>
         <?php endif ?>
