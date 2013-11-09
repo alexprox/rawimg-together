@@ -29,7 +29,7 @@
                 $matched = 0;
                 foreach($route as $k => $part)
                 {
-                    if(preg_match('/^{([a-z]+)}$/', $part))
+                    if(isset($url[$k]) && preg_match('/^{([a-z]+)}$/', $part))
                     {
                         $params[] = $url[$k];
                         $matched++;
