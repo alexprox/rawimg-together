@@ -81,4 +81,11 @@
             $this->_data['full_bootstrap'] = false;
             $this->_data['drawer'] = $data;
         }
+        
+        public function have_pagination($pages_url, $pages, $page)
+        {
+            $this->_data['pages_url'] = $pages_url;
+            $this->_data['pages'] = $pages;
+            $this->_data['page'] = $page;
+        }
     }
