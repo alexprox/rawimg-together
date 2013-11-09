@@ -21,8 +21,8 @@
                            .'WHERE login = :login '
                            .'  AND access_pwd_encode(:plain_pass, Salt)=Pwd;';
                     $query = $this->db()->query($sql);
-                    $result = $query->bind('login', $login, true)
-                            ->bind('plain_pass', $pass, true)
+                    $result = $query->bind('login', $login, \App\Query::STR)
+                            ->bind('plain_pass', $pass, \App\Query::STR)
                             ->execute();
                     if(count($result) != 0)
                     {
