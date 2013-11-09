@@ -18,7 +18,7 @@
                     <li <?php if($url == '/new')echo 'class="active"'; ?>>
                         <a href="/new"><?= $core->_('new sketch'); ?></a>
                     </li>
-                    <li <?php if($url == '/my')echo 'class="active"'; ?>>
+                    <li <?php if(false !== strpos($url, '/my')) echo 'class="active"'; ?>>
                         <a href="/my"><?= $core->_('my sketches'); ?></a>
                     </li>
                     <li class="divider-vertical"></li>
