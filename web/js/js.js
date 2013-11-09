@@ -12,8 +12,16 @@ var Drawer = function(options){
         init: function()
         {
             $('body').addClass('full').css('overflow-x','hidden');
-            canvas.width= $('body').width();
-            canvas.height= $('body').height();
+            if($('body').width() > $('body').height())
+            {
+                canvas.width= 1280;
+                canvas.height= 720;
+            }
+            else
+            {
+                canvas.width= 720;
+                canvas.height= 1280;
+            }
             ctxt = canvas.getContext("2d");
             colors = ['black', 'gray', 'white', 'pink', 'red', 'orange', 'yellow', 'green', 'blue', 'darkviolet'];
             ctxt.strokeStyle = 'black';
