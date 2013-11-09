@@ -14,6 +14,11 @@
             $this->session_id = session_id();
         }
         
+        public function id()
+        {
+            return $this->user_id;
+        }
+        
         public function login($uid)
         {
             $this->user_id = $uid;
