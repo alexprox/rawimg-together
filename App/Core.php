@@ -3,9 +3,7 @@
 
     class Core
     {
-        private $headers = array(
-            'Content-Type: text/html; charset=utf-8'
-        );
+        private $headers = array();
         
         private $config_folder = 'Config';
         /**
@@ -115,7 +113,7 @@
         
         public function redirect($url)
         {
-            $this->headers[] = 'Location: '.$url;
+            $this->add_header('Location: '.$url);
             $this->send_headers();
         }
         
@@ -123,7 +121,6 @@
         {
             try
             {
-                $this->send_headers();
                 $to_run = $this->router->match(self::url());
                 $to_run['Controller']->run($to_run['Action'], $to_run['Params']);
             }
@@ -131,6 +128,11 @@
             {
                 $this->debug->render_exceptions($e);
             }
+        }
+        
+        public function add_header($header)
+        {
+            $this->headers[] = $header;
         }
         
         public function send_headers()
