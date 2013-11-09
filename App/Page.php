@@ -3,8 +3,14 @@
 
     class Page
     {
+        /**
+         * @var \App\View 
+         */
         protected $view;
         
+        /**
+         * @var \App\Core 
+         */
         protected $core;
         
         public function __construct($core)
@@ -34,6 +40,7 @@
         
         public function after()
         {
+            $this->core->send_headers();
             echo $this->view->render();
         }
         
