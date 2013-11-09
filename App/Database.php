@@ -3,9 +3,6 @@
 
     class Database
     {
-        const STR = \PDO::PARAM_STR;
-        const INT = \PDO::PARAM_INT;
-        
         private $connection;
         
         private $config = '_Database.php';
