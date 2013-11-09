@@ -1,6 +1,6 @@
 <li class="span3">
     <div class="thumbnail">
-        <img style="width: 300px; height: 200px;" src="/get/<?=$image['ID']?>">
+        <img style="width: 300px;" src="/get/<?=$image['ID']?>">
         <div class="caption">
             <p><?=$image['Created']?></p>
             <div class="row-fluid">
