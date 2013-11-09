@@ -5,6 +5,7 @@
     {
         const STR = \PDO::PARAM_STR;
         const INT = \PDO::PARAM_INT;
+        const BLOB = \PDO::PARAM_LOB;
         
         private $connection;
         
@@ -23,12 +24,9 @@
             $this->sth = $this->connection->prepare($this->sql);
         }
         
-        public function bind($name, $value, $is_string = false)
+        public function bind($name, $value, $param_type = self::INT)
         {
-            if(!!$is_string)
-                $this->sth->bindValue(':'.$name, $value, \PDO::PARAM_STR);
-            else
-                $this->sth->bindValue(':'.$name, $value, \PDO::PARAM_INT);
+            $this->sth->bindValue(':'.$name, $value, $param_type);
             return $this;
         }
         
