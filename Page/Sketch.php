@@ -42,4 +42,33 @@
                 throw new \App\NotFoundException('Image not found');
             $this->view->image($image);
         }
+        
+        public function action_get_all($page = 1)
+        {
+            $per_page = 12;
+            $page = intval($page);
+            if($page < 1)
+                $page = 1;
+            $sql = 'SELECT COUNT(*) as Count'
+                .'    FROM access_users_images '
+                .'   WHERE UserID = :user; ';
+            $count = $this->db()->query($sql)
+                    ->bind('user', $this->user()->id())
+                    ->execute();
+            $this->view->have_pagination('/my/', intval(ceil($count/$per_page)), $page);
+            $sql = 'SELECT ImageID as ID, Created '
+                .'    FROM access_users_images '
+                .'   WHERE UserID = :user '
+                .'ORDER BY Created DESC '
+                .'   LIMIT :from, :per_page;';
+            $images = $this->db()->query($sql)
+                    ->bind('user', $this->user()->id())
+                    ->bind('from', ($page-1)*$per_page)
+                    ->bind('per_page', $per_page)
+                    ->execute();
+            if(isset($images['ID']))
+                $images = array($images);
+            $this->view->subview = 'Content/MySketches';
+            $this->view->images = $images;
+        }
     }
