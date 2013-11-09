@@ -3,6 +3,8 @@
 
     class View
     {
+        private $core;
+        
         private $name;
         
         private $file;
@@ -19,6 +21,7 @@
         
         public function __construct($name, $core)
         {
+            $this->core = $core;
             $this->folder = dirname(__DIR__).'\\'.$this->folder;
             $this->name = $name;
             $this->file = $name.$this->ext;
@@ -50,10 +53,18 @@
             $this->body = json_encode($value);
         }
         
+        public function image($content)
+        {
+            $this->core->add_header('Content-type: image/png');
+            $this->execute = false;
+            $this->body = $content;
+        }
+        
         public function render()
         {
             if($this->execute)
             {
+                $this->core->add_header('Content-Type: text/html; charset=utf-8');
                 extract($this->_data);
                 ob_start();
                 include($this->folder.'\\'.$this->file);
