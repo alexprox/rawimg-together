@@ -112,21 +112,6 @@ var Drawer = function(options){
     return this;
 };
 $(function(){
-    $('.nav-toggler').live('click', function(){
-        var bar = $('.'+$(this).attr('for'));
-        if(bar.length > 0)
-        {
-            $('.navbar').slideUp('fast');
-            if(bar.is(':visible'))
-            {
-                bar.slideUp('fast');
-            }
-            else
-            {
-                bar.slideDown('fast');
-            }
-        }
-    });
     if($('#draw').length)
     {
         var drawr = new Drawer({
@@ -161,8 +146,11 @@ $(function(){
                 image: drawr.data(),
                 drawer: type
             }
-        }).success(function(d) {
-            console.log(d);
+        }).success(function(r){
+            if(r=='ok')
+                location.href = '/';
+            else
+                console.log(r);
         });
         
     });
