@@ -16,9 +16,9 @@
         <?php if($navbar):
             include 'Navigation.php'; ?>
         <?php endif ?>
-        
-        <?php include $subview.'.php'; ?>
-        
+        <div class="container">
+            <?php include $subview.'.php'; ?>
+        </div>
         <?php if($footer): ?>
             <div class="container">
                 <div class="row-fluid text-center">
