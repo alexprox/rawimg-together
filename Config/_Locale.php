@@ -1,4 +1,5 @@
 <?php
-    return array(
-        'locale' => 'ru_RU'
-    );
+
+return array(
+    'locale' => 'ru_RU'
+);

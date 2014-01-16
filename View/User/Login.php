@@ -9,8 +9,8 @@
             <h2><?= $core->_('please sign in'); ?></h2>
             <input id="login" name="login" type="text" class="input-block-level" placeholder="<?= $core->_('login'); ?>">
             <input id="password" name="password" type="password" class="input-block-level" placeholder="<?= $core->_('password'); ?>">
-            <?php if($error): ?>
-                <div class="alert alert-error"><?= $core->_($error);?></div>
+            <?php if ($error): ?>
+                <div class="alert alert-error"><?= $core->_($error); ?></div>
             <?php endif; ?>
             <button class="btn btn-large btn-block btn-primary" type="submit"><?= $core->_('sign in'); ?></button>
         </form>

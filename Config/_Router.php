@@ -1,11 +1,16 @@
 <?php
-    return array(
-        '/' => array('Home', 'home'),
-        '/login' => array('User', 'login'),
-        '/logout' => array('User', 'logout'),
-        
-        '/new' => array('Sketch', 'new'),
-        '/get/{imageid}' => array('Sketch', 'get'),
-        '/my' => array('Sketch', 'get_all'),
-        '/my/{page}' => array('Sketch', 'get_all'),
-    );
+
+return array(
+    'home' => array(
+        '/', array('Home', 'home')
+    ),
+    'login' => array(
+        '/login', array('User', 'login')
+    ),
+    'logout' => array(
+        '/logout', array('User', 'logout')
+    ),
+    'pages' => array(
+        '/pages/{page}', array('User', 'logout')
+    )
+);

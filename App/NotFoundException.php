@@ -1,7 +1,7 @@
 <?php
-    namespace App;
 
-    class NotFoundException extends \Exception
-    {
-        
-    }
+namespace App;
+
+class NotFoundException extends \Exception {
+    
+}
