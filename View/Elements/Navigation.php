@@ -17,19 +17,14 @@
                     </li>
                 </ul>
                 <?php if ($user->is_granted('ADMIN')): ?>
-                    <ul class="nav pull-right">
-                        <li class="divider-vertical"></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                Admin
-                                <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/admin/news"><?= $core->_('news'); ?></a></li>
-                                <li><a href="/logout"><?= $core->_('logout'); ?></a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><?= $core->_('admin. panel'); ?>&nbsp;<span class="caret"></span></button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/logout"><?= $core->_('logout'); ?></a></li>
+                        </ul>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>

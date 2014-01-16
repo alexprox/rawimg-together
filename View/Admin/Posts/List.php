@@ -1,0 +1,1 @@
+<?php \App\View::render_template('Elements\Table', $core); ?>

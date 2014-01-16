@@ -68,6 +68,11 @@ class View {
         }
         return $this->body;
     }
+    
+    public static function render_template($name, $core) {
+        $view = new View($name, $core);
+        echo $view->render();
+    }
 
     public function have_pagination($pages_url, $pages, $page) {
         $this->_data['pages_url'] = $pages_url;

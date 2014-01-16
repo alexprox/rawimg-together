@@ -13,10 +13,10 @@ return array(
     'admin_login' => array(
         '/login', array('User', 'login'), false
     ),
-    'admin_dashboard' =>  array(
-        '/admin', array('Admin', 'home'), true
-    ),
     'admin_logout' => array(
         '/logout', array('User', 'logout'), true
-    )
+    ),
+    'admin_posts' =>  array(
+        '/admin/posts', array('Admin', 'posts_list'), true
+    ),
 );

@@ -8,7 +8,7 @@
         <link href="/css/css.css" rel="stylesheet">
     </head>
     <body>
-        <?php include 'Navigation.php'; ?>
+        <?php include 'Elements\Navigation.php'; ?>
         <div class="container">
             <?php include $subview.'.php'; ?>
             <?php $core->debug->render_vars(); ?>
