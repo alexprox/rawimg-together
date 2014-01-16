@@ -31,10 +31,10 @@ class Page {
     }
 
     public function before() {
-        if ($this->core->url() != '/login' && !$this->user()->logged()) {
-            $this->core->redirect('/login');
+        if ($this->core->router->get_current_route()->is_secured() && !$this->user()->logged()) {
+            $this->core->redirect('/');
         }
-        if ($this->user()->logged() && $this->user()->idle() > 60) {
+        if ($this->user()->logged() && $this->user()->idle() > 120) {
             $this->core->redirect('/logout');
         }
         $this->view = new View('Template', $this->core);
@@ -43,6 +43,13 @@ class Page {
     public function after() {
         if ($this->user()) {
             $this->user()->update();
+            echo '<pre>';
+            echo $this->currnet_route();
+            echo '<br>';
+            echo $this->core->router->get_current_route()->is_secured()?'secured':'unsecured';
+            echo '<br>';
+            echo $this->user()->logged()?'logged':'unlogged';
+            echo '</pre>';
         }
         $this->core->send_headers();
         echo $this->view->render();
@@ -52,11 +59,7 @@ class Page {
      * @return \App\User
      */
     public function user() {
-        $user = $this->core->session->get('who_am_i');
-        if ($user)
-            return $user;
-        else
-            return false;
+        return $this->core->user();
     }
 
     /**

@@ -21,6 +21,8 @@ class View {
         if (!file_exists($this->folder . '\\' . $this->file))
             throw new \Exception("View " . $name . " not found.");
 
+        $this->_data['user'] = $core->user();
+        $this->_data['route'] = $core->router->get_current_route();
         $this->_data['url'] = Core::url();
         $this->_data['core'] = $core;
         $this->_data['navbar'] = true;
@@ -42,6 +44,16 @@ class View {
         $this->execute = false;
         $this->body = json_encode($value);
     }
+    
+    public function json_redirect($value) {
+        $this->execute = false;
+        $this->body = json_encode($value);
+    }
+    
+    public function json_msg($value) {
+        $this->execute = false;
+        $this->body = json_encode($value);
+    }
 
     public function image($content) {
         $this->core->add_header('Content-type: image/png');
@@ -58,14 +70,6 @@ class View {
             $this->body = ob_get_clean();
         }
         return $this->body;
-    }
-
-    public function only_drawer($data = '') {
-        $this->_data['subview'] = 'Content/Drawer';
-        $this->_data['footer'] = false;
-        $this->_data['navbar'] = false;
-        $this->_data['full_bootstrap'] = false;
-        $this->_data['drawer'] = $data;
     }
 
     public function have_pagination($pages_url, $pages, $page) {

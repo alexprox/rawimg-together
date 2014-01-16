@@ -13,7 +13,7 @@ class Router {
         if (file_exists(root() . '\\' . $core->config_folder() . '\\' . $this->config)) {
             $this->routes = include(root() . '\\' . $core->config_folder() . '\\' . $this->config);
             foreach ($this->routes as $name => &$route) {
-                $route = new Route($name, $route[0], $route[1][0], $route[1][1]);
+                $route = new Route($name, $route[0], $route[1][0], $route[1][1], $route[2]);
             }
         } else {
             throw new \Exception('File "' . root() . '\\' . $core->config_folder() . '\\' . $this->config . '" not found');
@@ -66,7 +66,9 @@ class Router {
             throw new \Exception('No route matched your request');
         }
     }
-
+    /**
+     * @return \App\Route 
+     */
     public function get_current_route() {
         return $this->current_route;
     }

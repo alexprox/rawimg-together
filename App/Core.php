@@ -39,9 +39,10 @@ class Core {
             $this->db = new \App\Database($this);
             $this->session = new \App\Session();
             $this->locale = new \App\Locale($this);
-            $user = $this->session->get('who_am_i', false);
-            if (!$user)
+            $user = $this->user();
+            if (!$user) {
                 $this->session->set('who_am_i', new \App\User());
+            }
         } catch (\Exception $e) {
             $this->debug->render_exceptions($e);
         }
@@ -49,6 +50,15 @@ class Core {
 
     public function _($code) {
         return $this->locale->txt($code);
+    }
+
+    public function user() {
+        $user = $this->session->get('who_am_i');
+        if ($user) {
+            return $user;
+        } else {
+            return false;
+        }
     }
 
     public function config_folder() {
@@ -133,4 +143,5 @@ class Core {
                 $new[] = $t;
         return $new;
     }
+
 }

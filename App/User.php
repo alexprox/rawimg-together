@@ -8,6 +8,7 @@ class User {
     private $session_id;
     private $logged = false;
     private $updated;
+    private $roles = array();
 
     public function __construct() {
         $this->session_id = session_id();
@@ -21,6 +22,7 @@ class User {
     public function login($uid) {
         $this->user_id = $uid;
         $this->logged = true;
+        $this->roles[] = 'ADMIN';
     }
 
     public function logged() {
@@ -33,11 +35,15 @@ class User {
     }
 
     public function idle() {
-        return time() - $this->updated;
+        return ceil((time() - $this->updated)/60);
     }
 
     public function update() {
         $this->updated = time();
+    }
+    
+    public function is_granted($role) {
+        return !!in_array($role, $this->roles);
     }
 
 }

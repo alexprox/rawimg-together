@@ -9,12 +9,14 @@ class Route {
     private $controller;
     private $action;
     private $params;
+    private $secured;
 
-    public function __construct($name, $url, $controller, $action) {
+    public function __construct($name, $url, $controller, $action, $secured) {
         $this->name = $name;
         $this->url = $url;
         $this->controller = '\\Page\\' . $controller;
         $this->action = $action;
+        $this->secured = !!$secured;
     }
 
     public function name() {
@@ -39,6 +41,10 @@ class Route {
     
     public function add_params($params) {
         $this->params = $params;
+    }
+    
+    public function is_secured() {
+        return $this->secured;
     }
 
 }
