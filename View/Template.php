@@ -11,6 +11,7 @@
         <?php include 'Navigation.php'; ?>
         <div class="container">
             <?php include $subview.'.php'; ?>
+            <?php $core->debug->render_vars(); ?>
         </div>
         <div class="container">
             <div class="row-fluid text-center">

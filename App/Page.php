@@ -43,13 +43,6 @@ class Page {
     public function after() {
         if ($this->user()) {
             $this->user()->update();
-            echo '<pre>';
-            echo $this->currnet_route();
-            echo '<br>';
-            echo $this->core->router->get_current_route()->is_secured()?'secured':'unsecured';
-            echo '<br>';
-            echo $this->user()->logged()?'logged':'unlogged';
-            echo '</pre>';
         }
         $this->core->send_headers();
         echo $this->view->render();
@@ -75,6 +68,10 @@ class Page {
 
     public function currnet_route() {
         return $this->core->router->get_current_route()->name();
+    }
+    
+    public function debug($value) {
+        $this->core->debug->debug($value);
     }
 
 }

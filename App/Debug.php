@@ -5,6 +5,7 @@ namespace App;
 class Debug {
 
     private $core;
+    public $vars = array();
 
     public function __construct($core) {
         $this->core = $core;
@@ -25,7 +26,7 @@ class Debug {
 
         $view = new View('Template', $this->core);
         $view->subview = 'Exception';
-        if($this->core->user()->is_granted('ADMIN')) {
+        if ($this->core->user()->is_granted('ADMIN')) {
             $view->debug_err = $exception->getMessage();
             $view->debug_trace = $exception->getTraceAsString();
         } else {
@@ -33,6 +34,18 @@ class Debug {
         }
         echo $view->render();
     }
+    
+    public function debug($var) {
+        $this->vars[] = $var;
+    }
 
+    public function render_vars() {
+        if (count($this->vars) != 0) {
+            echo '<pre>';
+            foreach ($this->vars as $debug_value) {
+                var_dump($debug_value);
+            }
+            echo '</pre>';
+        }
+    }
 }
-
