@@ -95,7 +95,7 @@ class Core {
         return strtolower(self::server('HTTP_X_REQUESTED_WITH', '')) == 'xmlhttprequest';
     }
 
-    static public function url($with_domain = false, $with_params = false) {
+    static public function url($with_domain = false, $with_get_params = false) {
         $url = '';
         if (!!$with_domain) {
             $url .= self::server('HTTPS') == 'on' ? 'https://' : 'http://';
@@ -103,7 +103,7 @@ class Core {
         }
         $url .=self::server('REQUEST_URI');
 
-        if (!$with_params) {
+        if (!$with_get_params) {
             $pos = strpos($url, '?');
             if ($pos !== false)
                 $url = substr($url, 0, $pos);

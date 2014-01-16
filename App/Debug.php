@@ -21,7 +21,7 @@ class Debug {
             $status = '404 Not Found';
             $err = 'Page not found. Sorry';
         }
-        header($_SERVER["SERVER_PROTOCOL"] . ' ' . $status);
+        header(Core::server('SERVER_PROTOCOL', '') . ' ' . $status);
         header("Status: " . $status);
 
         $view = new View('Template', $this->core);
