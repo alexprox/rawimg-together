@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="brand" href="/">
-                .RAWI<span class="red">M</span>G
+                (^_^)
             </a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
@@ -15,23 +15,22 @@
                     <li <?php if($url == '/')echo 'class="active"'; ?>>
                         <a href="/"><?= $core->_('home page'); ?></a>
                     </li>
-                    <li <?php if($url == '/new')echo 'class="active"'; ?>>
-                        <a href="/new"><?= $core->_('new sketch'); ?></a>
-                    </li>
-                    <li <?php if(false !== strpos($url, '/my')) echo 'class="active"'; ?>>
-                        <a href="/my"><?= $core->_('my sketches'); ?></a>
-                    </li>
-                    <li class="divider-vertical"></li>
-                    <li <?php if($url == '/game')echo 'class="active"'; ?>>
-                        <a href="/game"><?= $core->_('game'); ?></a>
-                    </li>
                 </ul>
-                <ul class="nav pull-right">
-                    <li class="divider-vertical"></li>
-                    <li>
-                        <a href="/logout"><?= $core->_('logout'); ?></a>
-                    </li>
-                </ul>
+                <?php if ($user->is_granted('ADMIN')): ?>
+                    <ul class="nav pull-right">
+                        <li class="divider-vertical"></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Admin
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/admin/news"><?= $core->_('news'); ?></a></li>
+                                <li><a href="/logout"><?= $core->_('logout'); ?></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                <?php endif; ?>
             </div>
         </div>
     </div>

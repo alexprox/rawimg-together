@@ -1,17 +1,12 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+namespace Page;
 
-/**
- * Description of Admin
- *
- * @author PROX
- */
-class Admin {
-    //put your code here
+class Admin extends \App\Page {
+
+    public function action_home() {
+        echo 'Hello admin!';
+        $this->view->subview = 'Content/Home';
+    }
+
 }
-
-?>
