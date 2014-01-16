@@ -11,7 +11,7 @@ class Route {
     private $params;
     private $secured;
 
-    public function __construct($name, $url, $controller, $action, $secured) {
+    public function __construct($name, $url, $controller, $action, $secured = false) {
         $this->name = $name;
         $this->url = $url;
         $this->controller = '\\Page\\' . $controller;

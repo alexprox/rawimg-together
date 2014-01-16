@@ -22,33 +22,23 @@ class Router {
     }
 
     public function match($current_url) {
-        $current_url = explode('/', $current_url);
+        $current_url = Core::explode('/', $current_url);
         foreach ($this->routes as $route) {
-            $url = explode('/', $route->url());
+            $url = Core::explode('/', $route->url());
+            if ($current_url == $url) {
+                return $this->set_current_route($route);
+            }
             $params = array();
             $matched = 0;
             foreach ($url as $k => $part) {
                 if (isset($current_url[$k]) && preg_match('/^{([a-z]+)}$/', $part)) {
-                    $params[] = $url[$k];
+                    $params[] = $current_url[$k];
                     $matched++;
                 } elseif (isset($current_url[$k]) && $current_url[$k] == $part) {
                     $matched++;
                 }
-                if ($matched == count($url)) {
-                    $controller = $route->controller();
-                    if (class_exists($controller)) {
-                        $controller = new $controller($this->core);
-                        $action = 'action_' . $route->action();
-                        if (method_exists($controller, $action)) {
-                            $this->current_route = $route;
-                            $this->current_route->add_params($params);
-                            return array(
-                                'Controller' => $controller,
-                                'Action' => $action,
-                                'Params' => $params
-                            );
-                        }
-                    }
+                if ($matched == count($url) && count($url) == count($current_url)) {
+                    return $this->set_current_route($route, $params);
                 }
             }
         }
@@ -66,11 +56,20 @@ class Router {
             throw new \Exception('No route matched your request');
         }
     }
+
     /**
      * @return \App\Route 
      */
     public function get_current_route() {
         return $this->current_route;
     }
-
+    
+    /**
+     * @return \App\Route 
+     */
+    private function set_current_route($route, $params = array()) {
+        $route->add_params($params);
+        $this->current_route = $route;
+        return $this->current_route;
+    }
 }

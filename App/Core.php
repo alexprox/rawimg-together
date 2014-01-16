@@ -118,8 +118,14 @@ class Core {
 
     public function execute() {
         try {
-            $to_run = $this->router->match(self::url());
-            $to_run['Controller']->run($to_run['Action'], $to_run['Params'], true);
+            $route = $this->router->match(self::url());
+            $controller = $route->controller();
+            if (class_exists($controller)) {
+                $controller = new $controller($this);
+                $controller->run($route->action(), $route->params());
+            } else {
+                throw new \Exception('Class "'.$route->controller().'" not found!');
+            }
         } catch (\Exception $e) {
             $this->debug->render_exceptions($e);
         }
