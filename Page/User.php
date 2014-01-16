@@ -5,7 +5,8 @@ namespace Page;
 class User extends \App\Page {
 
     public function action_login() {
-        $this->view->navbar = false;
+        $this->view->hide_navbar();
+        $this->view->hide_footer();
         $error = false;
         if ($this->user()->logged())
             $this->core->redirect('/');

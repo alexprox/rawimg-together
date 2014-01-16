@@ -25,6 +25,9 @@ class View {
         $this->_data['route'] = $core->router->get_current_route();
         $this->_data['url'] = Core::url();
         $this->_data['core'] = $core;
+        
+        $this->_data['_hide_navbar'] = false;
+        $this->_data['_hide_footer'] = false;
     }
 
     public function __get($name) {
@@ -72,6 +75,14 @@ class View {
     public static function render_template($name, $core) {
         $view = new View($name, $core);
         echo $view->render();
+    }
+    
+    public function hide_navbar() {
+        $this->_data['_hide_navbar'] = true;
+    }
+    
+    public function hide_footer() {
+        $this->_data['_hide_footer'] = true;
     }
 
     public function have_pagination($pages_url, $pages, $page) {
